@@ -9,7 +9,7 @@
 
 Turn the composer's **reasoning-effort** control in **DeepSeek Harness** from a dropdown into a **slider card with a face**. Same job as before — pick off / low / high / max — just made a bit more fun.
 
-**One fish, four moods**: dozing when Off, snacking on rice at Low, starry-eyed at High, and spinning-eyed overload at Ultra. The card follows the level — grey → blue → purple → a gold ring — and the slider fills with the matching gradient. Landing on Ultra opens with a one-off line ("maximum reasoning effort may use more tokens") that fades out after three seconds.
+**One fish, one story across four levels**: dozing because it hasn't eaten, shovelling rice at Low, fuelled up and beaming at High, and flat-out carb-comatose at Ultra. The card follows the level — grey → blue → purple → a gold ring — and the slider fills with the matching gradient. Landing on Ultra opens with a one-off line ("maximum reasoning effort may use more tokens") that fades out after three seconds.
 
 > **One mapping worth stating**: the **Ultra** label is DeepSeek's `max` level. It only gets a friendlier name and a visual identity; the request still carries `reasoningEffort: "max"`. The other three keep the adapter's own names (Off / Low / High).
 
@@ -63,14 +63,16 @@ This links the checkout into your profile, so local edits take effect after a re
 | Failure mode | if that seat's contract changes, this plugin silently does not register — the official control stays, nothing breaks |
 | Blast radius | none on the Host, the session log, or what the model sees: selection still goes through `session.selectModel` |
 
-## Tiers
+## Four levels: the rice storyline
 
-| Level | Colour | Illustration |
-|---|---|---|
-| Off | neutral grey | dozing |
-| Low | blue | snacking |
-| High | purple | idea |
-| **Ultra** (= DeepSeek's `max`) | gold + badge | overloaded |
+| Level | Colour | Art | In the story |
+|---|---|---|---|
+| **Off** | neutral grey, no fill | half-shut eyes, a drool, drifting `Zzz` | **Hasn't eaten** — drowsy, nothing on its mind |
+| **Low** | blue, filled 1/3 | hugging a rice bowl, cheeks full, eyes shut in bliss | **Meal time** — working through the rice, one bite at a time |
+| **High** | purple, filled 2/3 | starry eyes, finger raised, a light bulb, sparkles | **Fed** — topped up and energised, ready to think |
+| **Ultra** (= DeepSeek's `max`) | gold + badge, blue→purple→gold | spiral eyes, drool, dizzy halo | **Overfed** — carb coma (yes, really) |
+
+Read top to bottom, the four levels are one continuous arc for the same fish: idle from hunger → eating → powered up → comatose. They are not four unrelated pictures.
 
 The top level adds colour-only motion (rotating conic ring, card brightness breathing, slider sheen, bolt glow), plus a one-off splash line when you land on it. Everything respects `prefers-reduced-motion`.
 
@@ -90,6 +92,23 @@ plugin_manager remove_bundle target=dsh-effort-mascot
 ```
 
 The shipped control comes back immediately; nothing is left behind.
+
+## How is this different from the other effort-slider plugins?
+
+DSH ships its reasoning effort as a dropdown, and a few community plugins have replaced it with a slider. Each picked a direction:
+
+| Project | The direction it picked |
+|---|---|
+| [HanaAyane/dsh-reasoning-effort](https://github.com/HanaAyane/dsh-reasoning-effort) | Keeps the native model picker, drags continuously inside the effort panel, and shows intensity with a running-fish animation |
+| [Microqian2th/dsh-codex-effort-slider](https://github.com/Microqian2th/dsh-codex-effort-slider) | Codex-style continuous track with a stardust gradient at high levels |
+| [yuhub233/dsh-effort-slider](https://github.com/yuhub233/dsh-effort-slider) | Sci-fi energy bar, an extra Ultra tier, plus a "lightning mode" that hands work to sub-agents |
+| [2768651338/dsh-effort-slider](https://github.com/2768651338/dsh-effort-slider) | A restrained Claude-Code-style slider |
+
+This plugin does not chase continuous drag feel, and has no particles or sub-agent wiring. It does one different thing: **the four levels tell a single story** — the same fish, from dozing off hungry, through a bowl of rice, to carb coma.
+
+So: if you care about continuous feel, particles or agent orchestration, those are a better fit. If you want to see at a glance what state the current level represents, this one might be it.
+
+> The names "fat fish" and "Ultra" also appear in other projects; this one merely reuses them and claims no exclusivity.
 
 ## Known limitations
 
