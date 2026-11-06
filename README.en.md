@@ -7,6 +7,8 @@
 ![zero build](https://img.shields.io/badge/zero--build-yes-2ea44f)
 ![license MIT](https://img.shields.io/badge/license-MIT-yellow)
 
+![Cover](docs/cover-en.webp)
+
 DSH ships reasoning effort as a dropdown where all four options look identical. This replaces it with a card, and the card has a fish on it.
 
 The fish is the effort level: dozing because it hasn't eaten (Off), shovelling rice (Low), fuelled up and beaming (High), and — having overdone it — carb-comatose (Ultra). The card's palette follows along: grey → blue → purple → a gold ring.
@@ -19,8 +21,6 @@ Nothing underneath changed: it reuses the official model directory and `session.
 
 > **The card is always dark and deliberately does not follow the light/dark theme.** It reads as a dark material floating above the composer, which keeps the illustrations and the gold highlights working in both themes.
 
-
-![Four tiers](docs/four-tiers.webp)
 
 Dragging through the levels, landing on Ultra (which opens with a one-off notice):
 
@@ -75,6 +75,8 @@ This links the checkout into your profile, so local edits take effect after a re
 | **Ultra** (= DeepSeek's `max`) | gold + badge, blue→purple→gold | spiral eyes, drool, dizzy halo | **Overfed** — carb coma (yes, really) |
 
 Read top to bottom, the four levels are one continuous arc for the same fish: idle from hunger → eating → powered up → comatose. They are not four unrelated pictures.
+
+![Four tiers](docs/four-tiers.webp)
 
 At the top level the card goes quiet for three seconds and says one thing: **"maximum reasoning effort may use more tokens."** Then it steps aside and the Ultra card fades back in — a heads-up, without a dialog to dismiss.
 

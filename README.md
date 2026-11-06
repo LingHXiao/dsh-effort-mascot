@@ -7,6 +7,8 @@
 ![zero build](https://img.shields.io/badge/zero--build-yes-2ea44f)
 ![license MIT](https://img.shields.io/badge/license-MIT-yellow)
 
+![封面](docs/cover.webp)
+
 DSH 的推理强度是个下拉列表，四个选项长得一模一样。我把它换成了一张卡片，卡片上有一只大肥鱼。
 
 这只鱼的状态就是你的推理强度：没吃饭时昏昏欲睡（Off），正在扒大白饭（Low），吃饱回血元气满满（High），以及 —— 吃太多，碳水晕了（Ultra）。卡片配色也跟着走：灰白 → 蓝 → 紫 → 金色彩环。
@@ -18,8 +20,6 @@ DSH 的推理强度是个下拉列表，四个选项长得一模一样。我把�
 底层没有任何改动：复用官方模型目录与 `session.selectModel`，只是同一个控件的另一种画法。
 
 > **卡片固定深色，不跟随明暗主题。** 这是刻意的：它是一块浮在输入框上的「深色材质」，浅色页面里也保持同一个样子，好让插画和金色高光始终成立。
-
-![四档效果](docs/four-tiers.webp)
 
 从低到高依次滑过，最后落到 Ultra（会先弹一次大字提示）：
 
@@ -65,6 +65,8 @@ dsh plugin --profile web add ./dsh-effort-mascot
 | **Ultra**（= DeepSeek 的 `max` 档） | 金色 + `终极` 徽章，滑杆蓝→紫→金 | 漩涡眼、口水滴落、四周一圈晕眩线 | **吃太多**，碳水晕了（笑） |
 
 四档连起来读，是同一只鱼从「饿着不动」到「撑到晕倒」的完整过程 —— 这不是四张互不相干的图，而是一条会被读懂的线。
+
+![四档效果](docs/four-tiers.webp)
 
 **Ultra 档的额外表现**：
 

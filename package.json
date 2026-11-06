@@ -20,7 +20,9 @@
     "assets/*",
     "docs/four-tiers.webp",
     "README.md",
-    "README.en.md"
+    "README.en.md",
+    "docs/cover.webp",
+    "docs/cover-en.webp"
   ],
   "dsh": {
     "bundle": {
