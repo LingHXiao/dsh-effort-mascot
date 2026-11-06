@@ -2,9 +2,11 @@
 
 **English** | [中文](README.md)
 
-Turn the composer's reasoning-effort control in **DeepSeek Harness** from a dropdown into a **slider card with a face**.
+Turn the composer's **reasoning-effort** control in **DeepSeek Harness** from a dropdown into a **slider card with a face**. Same job as before — pick off / low / high / max — just made a bit more fun.
 
-One mascot, four moods: dozing when **Off**, snacking on rice at **Low**, starry-eyed at **High**, and spinning-eyed overload at **Ultra**. The card follows the level — grey → blue → purple → a gold ring — and the slider fills with the matching gradient. Landing on Ultra opens with a one-off line ("maximum reasoning effort may use more tokens") that fades out after three seconds.
+**One fish, four moods**: dozing when Off, snacking on rice at Low, starry-eyed at High, and spinning-eyed overload at Ultra. The card follows the level — grey → blue → purple → a gold ring — and the slider fills with the matching gradient. Landing on Ultra opens with a one-off line ("maximum reasoning effort may use more tokens") that fades out after three seconds.
+
+> **One mapping worth stating**: the **Ultra** label is DeepSeek's `max` level. It only gets a friendlier name and a visual identity; the request still carries `reasoningEffort: "max"`. The other three keep the adapter's own names (Off / Low / High).
 
 Nothing underneath changed: it reuses the official model directory and `session.selectModel` — the same control, drawn differently.
 
@@ -44,7 +46,7 @@ Restart `dsh web` afterwards (the Host half registers the illustration route at 
 | Off | neutral grey | dozing |
 | Low | blue | snacking |
 | High | purple | idea |
-| Max (shown as **Ultra**) | gold + badge | overloaded |
+| **Ultra** (= DeepSeek's `max`) | gold + badge | overloaded |
 
 The top level adds colour-only motion (rotating conic ring, card brightness breathing, slider sheen, bolt glow), plus a one-off splash line when you land on it. Everything respects `prefers-reduced-motion`.
 
