@@ -2,7 +2,7 @@
   "name": "dsh-effort-mascot",
   "version": "1.0.0",
   "type": "module",
-  "description": "深色滑杆卡片：替换聊天框右下角的模型强度选择器。",
+  "description": "Reasoning-effort slider for DeepSeek Harness — a dark card with one mascot illustration per level.",
   "exports": {
     ".": "./index.js",
     "./client": "./client.js",
@@ -18,6 +18,7 @@
     "locale/*.json",
     "icon.svg",
     "assets/*",
+    "docs/four-tiers.webp",
     "README.md",
     "README.en.md"
   ],
@@ -46,5 +47,14 @@
   ],
   "engines": {
     "node": ">=22"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LingHXiao/dsh-effort-mascot.git"
+  },
+  "homepage": "https://github.com/LingHXiao/dsh-effort-mascot#readme",
+  "bugs": {
+    "url": "https://github.com/LingHXiao/dsh-effort-mascot/issues"
+  },
+  "author": "LingHXiao"
 }
