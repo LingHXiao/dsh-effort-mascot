@@ -1,71 +1,74 @@
 # dsh-effort-mascot
 
-**English** | [中文](README.zh.md)
+[English](README.en.md) | **中文**
 
-A reasoning-effort slider for **DeepSeek Harness** — it replaces the composer's effort control with a dark card: a per-tier gradient slider, and a mascot illustration that changes with the level.
+把 **DeepSeek Harness** 聊天框右下角的「推理强度」控件，换成一张深色滑杆卡片：滑杆按档位换色，四档各配一张角色插画，而且每一档的表情都不一样。
 
+![四档效果](docs/four-tiers.webp)
 
-![Four tiers](docs/four-tiers.webp)
+从低到高依次滑过，最后落到 Ultra（会先弹一次大字提示）：
 
-Dragging through the levels, landing on Ultra (which opens with a one-off notice):
+![拖动演示](docs/slider-demo.gif)
 
-![Demo](docs/slider-demo.gif)
+## 安装
 
-## Install
-
-Clone the repo somewhere permanent, then link it into your profile:
+把仓库克隆到一个固定位置，再链接进你的 profile：
 
 ```sh
-git clone https://github.com/<your-name>/dsh-effort-mascot.git
+git clone https://github.com/LingHXiao/dsh-effort-mascot.git
 dsh plugin --profile web add ./dsh-effort-mascot
 ```
 
-Restart `dsh web` afterwards (the Host half registers the illustration route at boot). The composer control is replaced on the next page load.
+装完**重启一次 `dsh web`**（宿主半侧在启动时挂载插画路由），然后刷新页面即可看到新控件。
 
-## Compatibility
+## 四档：配色与表情
+
+| 档位 | 配色 | 表情 | 在表达什么 |
+|---|---|---|---|
+| **关闭 Off** | 灰白，滑杆不填充 | 打瞌睡：眼睛半睁、嘴角挂着口水、头顶飘着 `Zzz` | 完全没在思考，安心摆烂 |
+| **轻度 Low** | 亮蓝，填充到 1/3 | 扒饭：腮帮子鼓鼓、闭着眼吃得正香、手里捧着饭碗 | 一边吃一边随便想想，不费力 |
+| **高级 High** | 紫色，填充到 2/3 | 灵光一闪：星星眼、食指竖起、头顶亮起灯泡、四周冒出小星星 | 想到点子了，开始认真动脑 |
+| **最高 Max**（显示为 **Ultra**） | 金色 + `终极` 徽章，滑杆蓝→紫→金 | 想到宕机：漩涡眼、口水滴落、四周一圈晕眩线 | 全功率运转，脑子已经打结 |
+
+**Ultra 档的额外表现**：
+
+- 拖动落到该档后，整张卡先变成一行大字 ——「思考强度最大时，可能消耗更多词元」—— 3 秒后渐退，再回到正常卡片（提醒这一档会更费 token）
+- 纯颜色类动效：彩环旋转、整卡亮度呼吸、滑杆流光、闪电辉光
+- 全部遵循系统的「减少动态效果」设置；开启后大字提示会直接跳过
+
+## 兼容性
 
 | | |
 |---|---|
-| Tested with | DSH `0.2.1-rc.2` |
-| Mechanism | shadows the shipped `conversation.input.model` slot at `priority: -1` |
-| Failure mode | if that seat's contract changes, this plugin silently does not register — the official control stays, nothing breaks |
-| Blast radius | none on the Host, the session log, or what the model sees: selection still goes through `session.selectModel` |
+| 实测版本 | DSH `0.2.1-rc.2` |
+| 实现方式 | 在 `priority: -1` 上遮蔽官方 `conversation.input.model` 座位 |
+| 失效表现 | 若 DSH 改了该座位的契约，插件会**静默不注册** —— 官方控件照常显示，不会把界面弄坏 |
+| 影响范围 | 不碰 Host、不碰会话日志、不改变模型实际收到的内容；选择仍走 `session.selectModel` |
 
-## Tiers
+## 换插画
 
-| Level | Colour | Illustration |
-|---|---|---|
-| Off | neutral grey | dozing |
-| Low | blue | snacking |
-| High | purple | idea |
-| Max (shown as **Ultra**) | gold + badge | overloaded |
+图片放在 `assets/<档位 id>.webp`：360×360 透明画布，角色本体高度已归一化，所以四张放在一起看起来一样大。宿主半侧通过 `GET /model-effort/asset/<文件名>` 提供（Client bundle 不能直接 import 图片）。
 
-The top level adds colour-only motion (rotating conic ring, card brightness breathing, slider sheen, bolt glow), plus a one-off splash line when you land on it. Everything respects `prefers-reduced-motion`.
+- **换图**：同名文件覆盖即可 → 刷新页面生效（缓存按文件 mtime + size 自动失效）
+- **加一档的图**：放入文件，再在 `client.js` 的 `TIER_IMAGES` 里加一行
 
-## Custom illustrations
+仓库内自带的插画是 AI 生成的示例素材，可以随意替换成你自己的图。
 
-Files live at `assets/<effort-id>.webp` — 360×360 transparent canvas, subject height normalised so the four characters read at the same size. The Host half serves them from `GET /model-effort/asset/<name>` (a Client bundle cannot import an image).
-
-- Replace a file with the same name → reload the page (the asset cache invalidates on mtime + size).
-- Add art for another level → drop the file and add one line to `TIER_IMAGES` in `client.js`.
-
-The bundled art is AI-generated sample material, replace it with whatever you like.
-
-## Remove
+## 卸载
 
 ```sh
 plugin_manager remove_bundle target=dsh-effort-mascot
 ```
 
-The shipped control comes back immediately; nothing is left behind.
+官方控件立即恢复，不留残留。
 
-## Known limitations
+## 已知限制
 
-- The trigger does not use the shipped `conversation.input.model.label` slot, so the `1017` badge contributed by `ui-deepseek-model-label-1017` is not shown on this button.
-- The in-card model list has no search (fine for a couple of models; use `/model` for the full picker).
-- The card is always dark and does not follow the light/dark theme.
-- Diagnostics: render failures are written to `~/.dsh/model-effort.log`.
+- 触发按钮不走官方的 `conversation.input.model.label` 槽位，所以 `ui-deepseek-model-label-1017` 提供的 `1017` 小徽标在该按钮上不显示。
+- 卡片内的模型列表没有搜索（模型少时够用，要完整选择器请用 `/model`）。
+- 卡片固定深色，不跟随明暗主题。
+- 诊断：渲染异常会写入 `~/.dsh/model-effort.log`。
 
-## License
+## 许可
 
-Code: MIT. Illustrations: AI-generated samples, not claimed as original works.
+代码 MIT。插画为 AI 生成的示例素材，不主张著作权。
