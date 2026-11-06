@@ -18,6 +18,8 @@
 
 ![拖动演示](docs/slider-demo.gif)
 
+> 动图为了能在 README 里直接播放被压到了 15fps。想看原速原画质（60fps、带声音）：[下载视频版](docs/slider-demo.mp4)。
+
 ## 安装
 
 把仓库克隆到一个固定位置，再链接进你的 profile：

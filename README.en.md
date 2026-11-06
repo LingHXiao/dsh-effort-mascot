@@ -19,6 +19,8 @@ Dragging through the levels, landing on Ultra (which opens with a one-off notice
 
 ![Demo](docs/slider-demo.gif)
 
+> The GIF is capped at 15fps so it can autoplay inline. Full speed and audio: [download the video](docs/slider-demo.mp4).
+
 ## Install
 
 Clone the repo somewhere permanent, then link it into your profile:
