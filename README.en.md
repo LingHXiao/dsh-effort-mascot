@@ -4,6 +4,8 @@
 
 A reasoning-effort slider for **DeepSeek Harness** — it replaces the composer's effort control with a dark card: a per-tier gradient slider, and a mascot illustration that changes with the level.
 
+> **The card is always dark and deliberately does not follow the light/dark theme.** It reads as a dark material floating above the composer, which keeps the illustrations and the gold highlights working in both themes.
+
 
 ![Four tiers](docs/four-tiers.webp)
 
@@ -63,7 +65,6 @@ The shipped control comes back immediately; nothing is left behind.
 
 - The trigger does not use the shipped `conversation.input.model.label` slot, so the `1017` badge contributed by `ui-deepseek-model-label-1017` is not shown on this button.
 - The in-card model list has no search (fine for a couple of models; use `/model` for the full picker).
-- The card is always dark and does not follow the light/dark theme.
 - Diagnostics: render failures are written to `~/.dsh/model-effort.log`.
 
 ## License

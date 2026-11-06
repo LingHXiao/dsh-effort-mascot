@@ -4,6 +4,8 @@
 
 把 **DeepSeek Harness** 聊天框右下角的「推理强度」控件，换成一张深色滑杆卡片：滑杆按档位换色，四档各配一张角色插画，而且每一档的表情都不一样。
 
+> **卡片固定深色，不跟随明暗主题。** 这是刻意的：它是一块浮在输入框上的「深色材质」，浅色页面里也保持同一个样子，好让插画和金色高光始终成立。
+
 ![四档效果](docs/four-tiers.webp)
 
 从低到高依次滑过，最后落到 Ultra（会先弹一次大字提示）：
@@ -66,7 +68,6 @@ plugin_manager remove_bundle target=dsh-effort-mascot
 
 - 触发按钮不走官方的 `conversation.input.model.label` 槽位，所以 `ui-deepseek-model-label-1017` 提供的 `1017` 小徽标在该按钮上不显示。
 - 卡片内的模型列表没有搜索（模型少时够用，要完整选择器请用 `/model`）。
-- 卡片固定深色，不跟随明暗主题。
 - 诊断：渲染异常会写入 `~/.dsh/model-effort.log`。
 
 ## 许可
