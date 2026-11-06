@@ -2,6 +2,7 @@
 
 **English** | [中文](README.md)
 
+[![npm](https://img.shields.io/npm/v/dsh-effort-mascot)](https://www.npmjs.com/package/dsh-effort-mascot)
 ![DSH 0.2.1-rc.2](https://img.shields.io/badge/DSH-0.2.1--rc.2-blue)
 ![zero build](https://img.shields.io/badge/zero--build-yes-2ea44f)
 ![license MIT](https://img.shields.io/badge/license-MIT-yellow)
@@ -33,14 +34,23 @@ Dragging through the levels, landing on Ultra (which opens with a one-off notice
 
 ## Install
 
-Clone the repo somewhere permanent, then link it into your profile:
-
 ```sh
-git clone https://github.com/<your-name>/dsh-effort-mascot.git
-dsh plugin --profile web add ./dsh-effort-mascot
+dsh plugin add dsh-effort-mascot
 ```
 
 Restart `dsh web` afterwards (the Host half registers the illustration route at boot), then reload the page.
+
+<details>
+<summary>Or install from source (to modify the code or swap the art)</summary>
+
+```sh
+git clone https://github.com/LingHXiao/dsh-effort-mascot.git
+dsh plugin --profile web add ./dsh-effort-mascot
+```
+
+This links the checkout into your profile, so local edits take effect after a restart — no republish needed.
+
+</details>
 
 **Checking it worked**: the reasoning-effort control at the bottom right of the composer should now be the card. If it looks unchanged the plugin did not register — check `~/.dsh/model-effort.log` for `inject` errors and confirm the bundle is enabled in `plugin_manager`.
 

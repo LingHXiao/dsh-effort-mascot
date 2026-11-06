@@ -2,6 +2,7 @@
 
 [English](README.en.md) | **中文**
 
+[![npm](https://img.shields.io/npm/v/dsh-effort-mascot)](https://www.npmjs.com/package/dsh-effort-mascot)
 ![DSH 0.2.1-rc.2](https://img.shields.io/badge/DSH-0.2.1--rc.2-blue)
 ![zero build](https://img.shields.io/badge/zero--build-yes-2ea44f)
 ![license MIT](https://img.shields.io/badge/license-MIT-yellow)
@@ -32,14 +33,23 @@
 
 ## 安装
 
-把仓库克隆到一个固定位置，再链接进你的 profile：
+```sh
+dsh plugin add dsh-effort-mascot
+```
+
+装完**重启一次 `dsh web`**（宿主半侧在启动时挂载插画路由），然后刷新页面。
+
+<details>
+<summary>或者从源码安装（想改代码/换插画时）</summary>
 
 ```sh
 git clone https://github.com/LingHXiao/dsh-effort-mascot.git
 dsh plugin --profile web add ./dsh-effort-mascot
 ```
 
-装完**重启一次 `dsh web`**（宿主半侧在启动时挂载插画路由），然后刷新页面。
+装的是本地链接，改完文件重启即可生效，不用重新发布。
+
+</details>
 
 **确认生效**：聊天框右下角的推理强度控件会变成卡片样式，点开能看到插画和滑杆。如果外观没变，说明插件没有注册成功 —— 先看 `~/.dsh/model-effort.log` 有没有 `inject` 报错，再用 `plugin_manager` 确认 bundle 是启用状态。
 
