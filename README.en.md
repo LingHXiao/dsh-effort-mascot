@@ -2,7 +2,11 @@
 
 **English** | [中文](README.md)
 
-A reasoning-effort slider for **DeepSeek Harness** — it replaces the composer's effort control with a dark card: a per-tier gradient slider, and a mascot illustration that changes with the level.
+Turn the composer's reasoning-effort control in **DeepSeek Harness** from a dropdown into a **slider card with a face**.
+
+One mascot, four moods: dozing when **Off**, snacking on rice at **Low**, starry-eyed at **High**, and spinning-eyed overload at **Ultra**. The card follows the level — grey → blue → purple → a gold ring — and the slider fills with the matching gradient. Landing on Ultra opens with a one-off line ("maximum reasoning effort may use more tokens") that fades out after three seconds.
+
+Nothing underneath changed: it reuses the official model directory and `session.selectModel` — the same control, drawn differently.
 
 > **The card is always dark and deliberately does not follow the light/dark theme.** It reads as a dark material floating above the composer, which keeps the illustrations and the gold highlights working in both themes.
 
