@@ -1,8 +1,9 @@
 # dsh-effort-mascot
 
+**English** | [中文](README.zh.md)
+
 A reasoning-effort slider for **DeepSeek Harness** — it replaces the composer's effort control with a dark card: a per-tier gradient slider, and a mascot illustration that changes with the level.
 
-把 DSH 聊天框右下角的「推理强度」控件换成一张深色滑杆卡片：滑杆按档位换色，四档各配一张角色插画。
 
 ![Four tiers](docs/four-tiers.webp)
 
