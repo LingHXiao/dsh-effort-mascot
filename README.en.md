@@ -7,9 +7,11 @@
 ![zero build](https://img.shields.io/badge/zero--build-yes-2ea44f)
 ![license MIT](https://img.shields.io/badge/license-MIT-yellow)
 
-Turn the composer's **reasoning-effort** control in **DeepSeek Harness** from a dropdown into a **slider card with a face**. Same job as before — pick off / low / high / max — just made a bit more fun.
+DSH ships reasoning effort as a dropdown where all four options look identical. This replaces it with a card, and the card has a fish on it.
 
-**One fish, one story across four levels**: dozing because it hasn't eaten, shovelling rice at Low, fuelled up and beaming at High, and flat-out carb-comatose at Ultra. The card follows the level — grey → blue → purple → a gold ring — and the slider fills with the matching gradient. Landing on Ultra opens with a one-off line ("maximum reasoning effort may use more tokens") that fades out after three seconds.
+The fish is the effort level: dozing because it hasn't eaten (Off), shovelling rice (Low), fuelled up and beaming (High), and — having overdone it — carb-comatose (Ultra). The card's palette follows along: grey → blue → purple → a gold ring.
+
+To be clear, **the artwork is only how it is drawn**. The four levels still map one-to-one onto `reasoningEffort` — off / low / high / max. Pick a level and the model thinks at that level; nothing about that changed. Only the way it looks did.
 
 > **One mapping worth stating**: the **Ultra** label is DeepSeek's `max` level. It only gets a friendlier name and a visual identity; the request still carries `reasoningEffort: "max"`. The other three keep the adapter's own names (Off / Low / High).
 
@@ -74,7 +76,10 @@ This links the checkout into your profile, so local edits take effect after a re
 
 Read top to bottom, the four levels are one continuous arc for the same fish: idle from hunger → eating → powered up → comatose. They are not four unrelated pictures.
 
-The top level adds colour-only motion (rotating conic ring, card brightness breathing, slider sheen, bolt glow), plus a one-off splash line when you land on it. Everything respects `prefers-reduced-motion`.
+At the top level the card goes quiet for three seconds and says one thing: **"maximum reasoning effort may use more tokens."** Then it steps aside and the Ultra card fades back in — a heads-up, without a dialog to dismiss.
+
+- Motion stays colour-only: rotating ring, brightness breathing, slider sheen, bolt glow
+- Everything honours `prefers-reduced-motion`; with it on, the motion stops and the notice is skipped
 
 ## Custom illustrations
 
