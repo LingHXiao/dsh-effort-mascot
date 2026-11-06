@@ -6,6 +6,10 @@
 
 ![四档效果](docs/four-tiers.webp)
 
+四个档位依次滑过，最后落到 Ultra（会先弹一次大字提示）：
+
+![拖动演示](docs/slider-demo.gif)
+
 ## 安装
 
 把仓库克隆到一个固定位置，再链接进你的 profile：
