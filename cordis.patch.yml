@@ -1,0 +1,5 @@
+# 一层 bundle 补丁：在 profile 的空条目列表后追加一行宿主插件。
+# 宿主半侧是空 apply，真正的界面在 client.js 的浏览器半侧。
+- insert:
+    - id: model-effort
+      name: 'dsh-effort-mascot'
