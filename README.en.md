@@ -2,6 +2,10 @@
 
 **English** | [中文](README.md)
 
+![DSH 0.2.1-rc.2](https://img.shields.io/badge/DSH-0.2.1--rc.2-blue)
+![zero build](https://img.shields.io/badge/zero--build-yes-2ea44f)
+![license MIT](https://img.shields.io/badge/license-MIT-yellow)
+
 Turn the composer's **reasoning-effort** control in **DeepSeek Harness** from a dropdown into a **slider card with a face**. Same job as before — pick off / low / high / max — just made a bit more fun.
 
 **One fish, four moods**: dozing when Off, snacking on rice at Low, starry-eyed at High, and spinning-eyed overload at Ultra. The card follows the level — grey → blue → purple → a gold ring — and the slider fills with the matching gradient. Landing on Ultra opens with a one-off line ("maximum reasoning effort may use more tokens") that fades out after three seconds.
@@ -21,6 +25,12 @@ Dragging through the levels, landing on Ultra (which opens with a one-off notice
 
 > The GIF is capped at 15fps so it can autoplay inline. Full speed and audio: [download the video](docs/slider-demo.mp4).
 
+**Three things worth knowing**
+
+- **Four levels, four faces** — it is not just a colour swap: the mascot itself changes (dozing → snacking → eureka → overload)
+- **Colour-only motion** — rotating ring, brightness breathing, slider sheen, bolt glow; nothing moves position, nothing is dizzying
+- **Quiet by default** — honours `prefers-reduced-motion`; with it on, everything freezes and the Ultra notice is skipped
+
 ## Install
 
 Clone the repo somewhere permanent, then link it into your profile:
@@ -30,7 +40,9 @@ git clone https://github.com/<your-name>/dsh-effort-mascot.git
 dsh plugin --profile web add ./dsh-effort-mascot
 ```
 
-Restart `dsh web` afterwards (the Host half registers the illustration route at boot). The composer control is replaced on the next page load.
+Restart `dsh web` afterwards (the Host half registers the illustration route at boot), then reload the page.
+
+**Checking it worked**: the reasoning-effort control at the bottom right of the composer should now be the card. If it looks unchanged the plugin did not register — check `~/.dsh/model-effort.log` for `inject` errors and confirm the bundle is enabled in `plugin_manager`.
 
 ## Compatibility
 
@@ -71,9 +83,14 @@ The shipped control comes back immediately; nothing is left behind.
 
 ## Known limitations
 
+<details>
+<summary>Expand (3 items)</summary>
+
 - The trigger does not use the shipped `conversation.input.model.label` slot, so the `1017` badge contributed by `ui-deepseek-model-label-1017` is not shown on this button.
 - The in-card model list has no search (fine for a couple of models; use `/model` for the full picker).
 - Diagnostics: render failures are written to `~/.dsh/model-effort.log`.
+
+</details>
 
 ## License
 

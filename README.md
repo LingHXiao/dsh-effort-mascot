@@ -2,6 +2,10 @@
 
 [English](README.en.md) | **中文**
 
+![DSH 0.2.1-rc.2](https://img.shields.io/badge/DSH-0.2.1--rc.2-blue)
+![zero build](https://img.shields.io/badge/zero--build-yes-2ea44f)
+![license MIT](https://img.shields.io/badge/license-MIT-yellow)
+
 把 **DeepSeek Harness** 聊天框右下角的「思考推理强度」调节，从一行下拉变成一个**会变脸的滑杆卡片**。功能还是原来那个功能 —— 选 off / low / high / max，只是把这件事做得有意思了一点。
 
 **同一只大肥鱼，四档四种状态**：关闭时半睁着眼打瞌睡、轻度捧着碗扒饭、高级星星眼灵光一闪、Ultra 想到眼冒漩涡、口水直流。卡片配色跟着档位走 —— 灰白 → 蓝 → 紫 → 金色彩环，滑杆按档位填充渐变。落到 Ultra 还会先弹一句「思考强度最大时，可能消耗更多词元」，三秒后渐退（提醒这一档更费 token）。
@@ -20,6 +24,12 @@
 
 > 动图为了能在 README 里直接播放被压到了 15fps。想看原速原画质（60fps、带声音）：[下载视频版](docs/slider-demo.mp4)。
 
+**三点特色**
+
+- **四档四种表情** —— 不止换颜色，角色本身也在变：打瞌睡 → 扒饭 → 灵光 → 宕机
+- **动效只改颜色** —— 彩环旋转、亮度呼吸、滑杆流光、闪电辉光，全部不做位移，不晃眼
+- **安静可用** —— 遵循系统「减少动态效果」，开了就全部静止；Ultra 的大字提示也会跳过
+
 ## 安装
 
 把仓库克隆到一个固定位置，再链接进你的 profile：
@@ -29,7 +39,9 @@ git clone https://github.com/LingHXiao/dsh-effort-mascot.git
 dsh plugin --profile web add ./dsh-effort-mascot
 ```
 
-装完**重启一次 `dsh web`**（宿主半侧在启动时挂载插画路由），然后刷新页面即可看到新控件。
+装完**重启一次 `dsh web`**（宿主半侧在启动时挂载插画路由），然后刷新页面。
+
+**确认生效**：聊天框右下角的推理强度控件会变成卡片样式，点开能看到插画和滑杆。如果外观没变，说明插件没有注册成功 —— 先看 `~/.dsh/model-effort.log` 有没有 `inject` 报错，再用 `plugin_manager` 确认 bundle 是启用状态。
 
 ## 四档：配色与表情
 
@@ -74,9 +86,14 @@ plugin_manager remove_bundle target=dsh-effort-mascot
 
 ## 已知限制
 
+<details>
+<summary>展开（3 条）</summary>
+
 - 触发按钮不走官方的 `conversation.input.model.label` 槽位，所以 `ui-deepseek-model-label-1017` 提供的 `1017` 小徽标在该按钮上不显示。
 - 卡片内的模型列表没有搜索（模型少时够用，要完整选择器请用 `/model`）。
 - 诊断：渲染异常会写入 `~/.dsh/model-effort.log`。
+
+</details>
 
 ## 许可
 
