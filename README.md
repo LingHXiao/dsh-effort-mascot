@@ -5,7 +5,7 @@
 [![npm](https://img.shields.io/npm/v/dsh-effort-mascot)](https://www.npmjs.com/package/dsh-effort-mascot)
 [![npm downloads](https://img.shields.io/npm/dm/dsh-effort-mascot)](https://www.npmjs.com/package/dsh-effort-mascot)
 [![seat-drift](https://github.com/LingHXiao/dsh-effort-mascot/actions/workflows/seat-drift.yml/badge.svg)](https://github.com/LingHXiao/dsh-effort-mascot/actions/workflows/seat-drift.yml)
-![DSH 0.2.1-rc.2](https://img.shields.io/badge/DSH-0.2.1--rc.2-blue)
+![DSH >=0.2.1-rc.2](https://img.shields.io/badge/DSH-%3E%3D0.2.1--rc.2-blue)
 ![zero build](https://img.shields.io/badge/zero--build-yes-2ea44f)
 ![license MIT](https://img.shields.io/badge/license-MIT-yellow)
 
@@ -81,7 +81,7 @@ dsh plugin --profile web add ./dsh-effort-mascot
 
 | | |
 |---|---|
-| 实测版本 | DSH `0.2.1-rc.2` |
+| 实测版本 | 在 DSH `0.2.1-rc.2` 上实测。CI 每周检查该座位在 `next` 线上是否仍然存在——座位消失会是一次红色失败，而不是静默失效 |
 | 实现方式 | 在 `priority: -1` 上遮蔽官方 `conversation.input.model` 座位 |
 | 失效表现 | 若 DSH 改了该座位的契约，插件会**静默不注册** —— 官方控件照常显示，不会把界面弄坏 |
 | 影响范围 | 不碰 Host、不碰会话日志、不改变模型实际收到的内容；选择仍走 `session.selectModel` |
