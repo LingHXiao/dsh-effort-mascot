@@ -62,7 +62,7 @@ This links the checkout into your profile, so local edits take effect after a re
 
 | | |
 |---|---|
-| Tested with | DSH `0.2.1-rc.2`. CI checks weekly that the seat still exists on the `next` line, so a rename shows up as a red check instead of a silent no-register |
+| Tested with | DSH `0.2.1-rc.2` and `0.2.2-rc.1`. CI checks weekly that the seat still exists on the `next` line, so a rename shows up as a red check instead of a silent no-register |
 | Mechanism | shadows the shipped `conversation.input.model` slot at `priority: -1` |
 | Failure mode | if that seat's contract changes, this plugin silently does not register — the official control stays, nothing breaks |
 | Blast radius | none on the Host, the session log, or what the model sees: selection still goes through `session.selectModel` |
