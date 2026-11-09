@@ -1,0 +1,59 @@
+name: seat-drift
+
+# This plugin does not error when its slot disappears — it silently does not
+# register, so the card simply never appears. That failure is invisible to a
+# user and easy to miss in review, so test for it explicitly: the seat name
+# `conversation.input.model` must still exist in the package that owns it.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  schedule:
+    # Weekly, so a DSH release that renames the seat surfaces as a red X even
+    # when nothing in this repo changed.
+    - cron: '0 2 * * 1'
+  workflow_dispatch:
+
+jobs:
+  seat:
+    name: seat exists — DSH ${{ matrix.label }}
+    runs-on: ubuntu-latest
+    continue-on-error: ${{ matrix.experimental }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - label: 0.2.1-rc.2 (tested)
+            spec: '0.2.1-rc.2'
+            experimental: false
+          - label: next
+            spec: 'next'
+            experimental: true
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Syntax check both halves
+        run: |
+          node --check index.js
+          node --check client.js
+
+      - name: Install the package that owns the seat
+        run: |
+          npm install --no-save --no-package-lock --no-audit --no-fund \
+            "@deepseek-ai/dsh-client-ui-model-selection@${{ matrix.spec }}"
+
+      - name: Assert the seat still exists
+        run: |
+          SEAT='conversation.input.model'
+          if grep -rq "$SEAT" node_modules/@deepseek-ai/dsh-client-ui-model-selection; then
+            echo "::notice::$SEAT is still present — the shadowed seat is valid."
+          else
+            echo "::error::$SEAT is gone. This plugin will silently stop registering; update the seat name in client.js."
+            exit 1
+          fi

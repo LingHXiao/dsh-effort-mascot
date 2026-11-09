@@ -3,11 +3,13 @@
 [English](README.en.md) | **中文**
 
 [![npm](https://img.shields.io/npm/v/dsh-effort-mascot)](https://www.npmjs.com/package/dsh-effort-mascot)
+[![npm downloads](https://img.shields.io/npm/dm/dsh-effort-mascot)](https://www.npmjs.com/package/dsh-effort-mascot)
+[![seat-drift](https://github.com/LingHXiao/dsh-effort-mascot/actions/workflows/seat-drift.yml/badge.svg)](https://github.com/LingHXiao/dsh-effort-mascot/actions/workflows/seat-drift.yml)
 ![DSH 0.2.1-rc.2](https://img.shields.io/badge/DSH-0.2.1--rc.2-blue)
 ![zero build](https://img.shields.io/badge/zero--build-yes-2ea44f)
 ![license MIT](https://img.shields.io/badge/license-MIT-yellow)
 
-![封面](docs/cover.webp)
+![封面](https://raw.githubusercontent.com/LingHXiao/dsh-effort-mascot/main/docs/cover.webp)
 
 DSH 的推理强度是个下拉列表，四个选项长得一模一样。我把它换成了一张卡片，卡片上有一只大肥鱼。
 
@@ -23,9 +25,9 @@ DSH 的推理强度是个下拉列表，四个选项长得一模一样。我把�
 
 从低到高依次滑过，最后落到 Ultra（会先弹一次大字提示）：
 
-![拖动演示](docs/slider-demo.gif)
+![拖动演示](https://raw.githubusercontent.com/LingHXiao/dsh-effort-mascot/main/docs/slider-demo.gif)
 
-> 动图为了能在 README 里直接播放被压到了 15fps。想看原速原画质（60fps、带声音）：[下载视频版](docs/slider-demo.mp4)。
+> 动图为了能在 README 里直接播放被压到了 15fps。想看原速原画质（60fps、带声音）：[下载视频版](https://raw.githubusercontent.com/LingHXiao/dsh-effort-mascot/main/docs/slider-demo.mp4)。
 
 **三点特色**
 
@@ -66,7 +68,7 @@ dsh plugin --profile web add ./dsh-effort-mascot
 
 四档连起来读，是同一只鱼从「饿着不动」到「撑到晕倒」的完整过程 —— 这不是四张互不相干的图，而是一条会被读懂的线。
 
-![四档效果](docs/four-tiers.webp)
+![四档效果](https://raw.githubusercontent.com/LingHXiao/dsh-effort-mascot/main/docs/four-tiers.webp)
 
 **Ultra 档的额外表现**：
 
@@ -125,7 +127,7 @@ DSH 的推理强度默认是下拉列表，社区里已经有几个插件把它�
 
 - 触发按钮不走官方的 `conversation.input.model.label` 槽位，所以 `ui-deepseek-model-label-1017` 提供的 `1017` 小徽标在该按钮上不显示。
 - 卡片内的模型列表没有搜索（模型少时够用，要完整选择器请用 `/model`）。
-- 诊断：渲染异常会写入 `~/.dsh/model-effort.log`。
+- 诊断：**只有渲染失败**会写入 `~/.dsh/model-effort.log`（上限 1 MB，超出自动轮转为 `.log.1`）。选了什么模型、什么档位**默认一律不落盘**；要排查问题时在控制台设 `globalThis.__MEC_TRACE = true`，才会额外记录状态变化。
 
 </details>
 

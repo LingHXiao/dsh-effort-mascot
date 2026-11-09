@@ -3,11 +3,13 @@
 **English** | [中文](README.md)
 
 [![npm](https://img.shields.io/npm/v/dsh-effort-mascot)](https://www.npmjs.com/package/dsh-effort-mascot)
+[![npm downloads](https://img.shields.io/npm/dm/dsh-effort-mascot)](https://www.npmjs.com/package/dsh-effort-mascot)
+[![seat-drift](https://github.com/LingHXiao/dsh-effort-mascot/actions/workflows/seat-drift.yml/badge.svg)](https://github.com/LingHXiao/dsh-effort-mascot/actions/workflows/seat-drift.yml)
 ![DSH 0.2.1-rc.2](https://img.shields.io/badge/DSH-0.2.1--rc.2-blue)
 ![zero build](https://img.shields.io/badge/zero--build-yes-2ea44f)
 ![license MIT](https://img.shields.io/badge/license-MIT-yellow)
 
-![Cover](docs/cover-en.webp)
+![Cover](https://raw.githubusercontent.com/LingHXiao/dsh-effort-mascot/main/docs/cover-en.webp)
 
 DSH ships reasoning effort as a dropdown where all four options look identical. This replaces it with a card, and the card has a fish on it.
 
@@ -24,9 +26,9 @@ Nothing underneath changed: it reuses the official model directory and `session.
 
 Dragging through the levels, landing on Ultra (which opens with a one-off notice):
 
-![Demo](docs/slider-demo.gif)
+![Demo](https://raw.githubusercontent.com/LingHXiao/dsh-effort-mascot/main/docs/slider-demo.gif)
 
-> The GIF is capped at 15fps so it can autoplay inline. Full speed and audio: [download the video](docs/slider-demo.mp4).
+> The GIF is capped at 15fps so it can autoplay inline. Full speed and audio: [download the video](https://raw.githubusercontent.com/LingHXiao/dsh-effort-mascot/main/docs/slider-demo.mp4).
 
 **Three things worth knowing**
 
@@ -76,7 +78,7 @@ This links the checkout into your profile, so local edits take effect after a re
 
 Read top to bottom, the four levels are one continuous arc for the same fish: idle from hunger → eating → powered up → comatose. They are not four unrelated pictures.
 
-![Four tiers](docs/four-tiers.webp)
+![Four tiers](https://raw.githubusercontent.com/LingHXiao/dsh-effort-mascot/main/docs/four-tiers.webp)
 
 At the top level the card goes quiet for three seconds and says one thing: **"maximum reasoning effort may use more tokens."** Then it steps aside and the Ultra card fades back in — a heads-up, without a dialog to dismiss.
 
@@ -124,7 +126,7 @@ So: if you care about continuous feel, particles or agent orchestration, those a
 
 - The trigger does not use the shipped `conversation.input.model.label` slot, so the `1017` badge contributed by `ui-deepseek-model-label-1017` is not shown on this button.
 - The in-card model list has no search (fine for a couple of models; use `/model` for the full picker).
-- Diagnostics: render failures are written to `~/.dsh/model-effort.log`.
+- Diagnostics: **only render failures** are written to `~/.dsh/model-effort.log` (capped at 1 MB, then rotated to `.log.1`). Which model or level you picked is **never written by default**; for troubleshooting, set `globalThis.__MEC_TRACE = true` in the console to also record state changes.
 
 </details>
 

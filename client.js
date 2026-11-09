@@ -313,20 +313,11 @@ window.__ModuleLoader__.load({
     }
 
     /**
-     * Send one Client-side failure to the Host's diagnostic sink. The browser
-     * console is unreadable from a shell, so a render crash that the slot
-     * supervisor swallowed would otherwise leave no trace.
-     * @param {string} where - phase that failed ('apply', 'body', 'card', 'effect').
-     * @param {unknown} error - thrown value.
+     * POST one diagnostic line to the Host sink.
+     * @param {{where: string, message: string, stack: string}} payload - one line.
      * @returns {void}
      */
-    function report(where, error) {
-      if (globalThis.__MEC_TRACE === true) console.log('[mec]', where, error);
-      const payload = {
-        where,
-        message: error instanceof Error ? error.message : String(error),
-        stack: error instanceof Error ? error.stack ?? '' : '',
-      };
+    function post(payload) {
       try {
         void fetch('/model-effort/log', {
           method: 'POST',
@@ -337,6 +328,48 @@ window.__ModuleLoader__.load({
       } catch {
         // Reporting must never become a second failure.
       }
+    }
+
+    /**
+     * @param {unknown} value - thrown value or already-stringified detail.
+     * @returns {string} a loggable one-line message.
+     */
+    function messageOf(value) {
+      if (value instanceof Error) return value.message;
+      return typeof value === 'string' ? value : String(value);
+    }
+
+    /**
+     * Opt-in trace channel, enabled only by `globalThis.__MEC_TRACE = true`.
+     *
+     * Nothing is written on a normal install: the sink must never persist which
+     * model or effort the user picked. State dumps and commit payloads are
+     * development aids, not telemetry.
+     * @param {string} where - trace point ('state', 'commit', 'apply').
+     * @param {unknown} detail - what to record.
+     * @returns {void}
+     */
+    function trace(where, detail) {
+      if (globalThis.__MEC_TRACE !== true) return;
+      console.log('[mec]', where, detail);
+      post({ where, message: messageOf(detail), stack: '' });
+    }
+
+    /**
+     * Send one Client-side failure to the Host's diagnostic sink. The browser
+     * console is unreadable from a shell, so a render crash that the slot
+     * supervisor swallowed would otherwise leave no trace.
+     * @param {string} where - phase that failed ('apply', 'body', 'card', 'effect').
+     * @param {unknown} error - thrown value.
+     * @returns {void}
+     */
+    function report(where, error) {
+      if (globalThis.__MEC_TRACE === true) console.log('[mec]', where, error);
+      post({
+        where,
+        message: messageOf(error),
+        stack: error instanceof Error ? error.stack ?? '' : '',
+      });
     }
 
     /**
@@ -471,7 +504,7 @@ window.__ModuleLoader__.load({
         });
         if (traceRef.current === sig) return;
         traceRef.current = sig;
-        report('state', sig);
+        trace('state', sig);
       }, [isTop, displayIndex, state]);
 
       React.useEffect(() => {
@@ -591,7 +624,7 @@ window.__ModuleLoader__.load({
         const now = Date.now();
         const tooSoon = now - lastCommitAtRef.current < 250;
         lastCommitAtRef.current = now;
-        report('commit', JSON.stringify({
+        trace('commit', JSON.stringify({
           source,
           sent: { provider: state.current.provider, model: state.current.model, effort: stop.effort ?? null },
           current: state.current.reasoningEffort ?? null,
@@ -603,7 +636,7 @@ window.__ModuleLoader__.load({
         if (stop.effort !== undefined) selection.reasoningEffort = stop.effort;
         Promise.resolve(select(selection)).then((result) => {
           inflightRef.current = null;
-          report('commit-done', JSON.stringify({
+          trace('commit-done', JSON.stringify({
             ok: result === undefined ? 'noop' : result.ok,
             error: result !== undefined && result.ok === false ? result.error?.message ?? '' : '',
             current: directory.getSnapshot().current,
@@ -689,6 +722,14 @@ window.__ModuleLoader__.load({
             'aria-valuetext': stops[displayIndex]?.label,
             disabled: busy || locked,
             onInput: (event) => { setPreview(Number(event.currentTarget.value)); },
+            onKeyDown: (event) => {
+              // 1..4 jump straight to a tier; the arrows only step one at a time.
+              if (event.altKey || event.ctrlKey || event.metaKey) return;
+              const digit = Number(event.key);
+              if (!Number.isInteger(digit) || digit < 1 || digit > stops.length) return;
+              event.preventDefault();
+              commit(digit - 1, 'digit');
+            },
             onKeyUp: (event) => {
               if (['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'Home', 'End', 'PageUp', 'PageDown'].includes(event.key)) {
                 commit(Number(event.currentTarget.value), 'keyup');
@@ -852,7 +893,7 @@ window.__ModuleLoader__.load({
         throw failure;
       }
       const t = ctx.locale.bind(NS);
-      report('apply', 'client half applied');
+      trace('apply', 'client half applied');
 
       ctx.inject(['slots', 'modelDirectories', 'sessions'], (scope) => {
         const models = scope.modelDirectories;

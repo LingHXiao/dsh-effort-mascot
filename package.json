@@ -1,6 +1,6 @@
 {
   "name": "dsh-effort-mascot",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "type": "module",
   "description": "Reasoning-effort slider for DeepSeek Harness — a dark card with one mascot illustration per level.",
   "exports": {
@@ -49,6 +49,18 @@
   ],
   "engines": {
     "node": ">=22"
+  },
+  "peerDependencies": {
+    "@deepseek-ai/cordis": "~4.0.5",
+    "@deepseek-ai/dsh-client-ui-model-selection": ">=0.2.1-rc.2 <0.3.0",
+    "react": ">=18",
+    "react-dom": ">=18"
+  },
+  "peerDependenciesMeta": {
+    "@deepseek-ai/cordis": { "optional": true },
+    "@deepseek-ai/dsh-client-ui-model-selection": { "optional": true },
+    "react": { "optional": true },
+    "react-dom": { "optional": true }
   },
   "repository": {
     "type": "git",
